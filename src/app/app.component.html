@@ -1,0 +1,328 @@
+<header>         
+    <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark" [containerInside]="false">
+        <logo>
+            <a class="logo navbar-brand" href="#"><strong>Yahoo Weather</strong></a>
+        </logo>
+        <links>
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item waves-light" *ngIf="inicio==0"><a class="nav-link" (click)="secInicio()">Inicio</a></li>
+                <li class="nav-item active waves-light" *ngIf="inicio==1"><a class="nav-link">Inicio</a></li>
+
+                <li class="nav-item waves-light" *ngIf="noticias==0"><a class="nav-link"(click)="secNoticias()">Noticias</a></li>
+                <li class="nav-item active waves-light"  *ngIf="noticias==1"><a class="nav-link">Noticias</a></li>
+                <!-- Dropdown -->
+                <li class="nav-item dropdown" *ngIf="ciudades==0"><a  (click)="show()" class="nav-link dropdown-toggle waves-light">Ciudades</a>
+                </li>
+                <li class="nav-item active dropdown" *ngIf="ciudades==1"><a  (click)="show()" class="nav-link dropdown-toggle waves-light">Ciudades</a>
+                </li>
+
+            </ul>
+            <div mdbModal #content="mdb-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true" [config]="{backdrop: false, ignoreBackdropClick: false}">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+
+                                    <div class="mb-3 text-center">Departamento</div>
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-2">
+                                            <div class="row" *ngFor="let depart of departamentos; let i=index">
+                                                <a (click)="selDepa(depart.id)" *ngIf="i<5&&i!=indexDepar">{{depart.departamento}}</a>
+                                                <a *ngIf="i<5&&i==indexDepar" class="activado">{{depart.departamento}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="row" *ngFor="let depart of departamentos; let i=index">
+                                                <a (click)="selDepa(depart.id)" *ngIf="i>4&&i<10&&i!=indexDepar">{{depart.departamento}}</a>
+                                                <a *ngIf="i>4&&i<10&&i==indexDepar" class="activado">{{depart.departamento}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="row" *ngFor="let depart of departamentos; let i=index">
+                                                <a (click)="selDepa(depart.id)" *ngIf="i>9&&i<15&&i!=indexDepar">{{depart.departamento}}</a>
+                                                <a *ngIf="i>9&&i<15&&i==indexDepar" class="activado">{{depart.departamento}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="row" *ngFor="let depart of departamentos; let i=index">
+                                                <a (click)="selDepa(depart.id)" *ngIf="i>14&&i<20&&i!=indexDepar">{{depart.departamento}}</a>
+                                                <a *ngIf="i>14&&i<20&&i==indexDepar" class="activado">{{depart.departamento}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="row" *ngFor="let depart of departamentos; let i=index">
+                                                <a (click)="selDepa(depart.id)" *ngIf="i>19&&i!=indexDepar">{{depart.departamento}}</a>
+                                                <a *ngIf="i>19&&i==indexDepar" class="activado">{{depart.departamento}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                    </div>
+                                    
+                                    <div class="mt-3 mb-3 text-center" *ngIf="indexDepar>-1">Provincia</div>
+                                    <div class="row" *ngIf="indexDepar>-1">
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-2">
+                                            <div class="row" *ngFor="let prov of departamentos[indexDepar].provincias; let i=index">
+                                                <a (click)="selProv(prov.id)" *ngIf="i<4&&i!=indexProv">{{prov.provincia}}</a>
+                                                <a  *ngIf="i<4&&i==indexProv" class="activado">{{prov.provincia}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="row" *ngFor="let prov of departamentos[indexDepar].provincias; let i=index">
+                                                <a (click)="selProv(prov.id)" *ngIf="i>3&&i<8&&i!=indexProv">{{prov.provincia}}</a>
+                                                <a *ngIf="i>3&&i<8&&i==indexProv" class="activado">{{prov.provincia}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="row" *ngFor="let prov of departamentos[indexDepar].provincias; let i=index">
+                                                <a (click)="selProv(prov.id)" *ngIf="i>7&&i<12&&i!=indexProv">{{prov.provincia}}</a>
+                                                <a  *ngIf="i>7&&i<12&&i==indexProv" class="activado">{{prov.provincia}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="row" *ngFor="let prov of departamentos[indexDepar].provincias; let i=index">
+                                                <a (click)="selProv(prov.id)" *ngIf="i>11&&i<16&&i!=indexProv">{{prov.provincia}}</a>
+                                                <a *ngIf="i>11&&i<16&&i==indexProv" class="activado">{{prov.provincia}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="row" *ngFor="let prov of departamentos[indexDepar].provincias; let i=index">
+                                                <a (click)="selProv(prov.id)" *ngIf="i>15&&i!=indexProv">{{prov.provincia}}</a>
+                                                <a *ngIf="i>15&&i==indexProv" class="activado">{{prov.provincia}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                    </div>
+                                    
+                                    <div class="mt-3 mb-3 text-center" *ngIf="indexProv>-1">Distrito</div>
+                                    <div class="row" *ngIf="indexProv>-1">
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-2">
+                                            <div class="row" *ngFor="let dist of departamentos[indexDepar].provincias[indexProv].distritos; let i=index">
+                                                <a (click)="selDist(dist.id)" *ngIf="i<6&&i!=indexDist">{{dist.distrito}}</a>
+                                                <a *ngIf="i<6&&i==indexDist" class="activado">{{dist.distrito}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="row" *ngFor="let dist of departamentos[indexDepar].provincias[indexProv].distritos; let i=index">
+                                                <a (click)="selDist(dist.id)" *ngIf="i>5&&i<12&&i!=indexDist">{{dist.distrito}}</a>
+                                                <a *ngIf="i>5&&i<12&&i==indexDist" class="activado">{{dist.distrito}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="row" *ngFor="let dist of departamentos[indexDepar].provincias[indexProv].distritos; let i=index">
+                                                <a (click)="selDist(dist.id)" *ngIf="i>11&&i<18&&i!=indexDist">{{dist.distrito}}</a>
+                                                <a *ngIf="i>11&&i<18&&i==indexDist" class="activado">{{dist.distrito}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="row" *ngFor="let dist of departamentos[indexDepar].provincias[indexProv].distritos; let i=index">
+                                                <a (click)="selDist(dist.id)" *ngIf="i>17&&i<24&&i!=indexDist">{{dist.distrito}}</a>
+                                                <a *ngIf="i>17&&i<24&&i==indexDist" class="activado">{{dist.distrito}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="row" *ngFor="let dist of departamentos[indexDepar].provincias[indexProv].distritos; let i=index">
+                                                <a (click)="selDist(dist.id)" *ngIf="i>23&&i!=indexDist">{{dist.distrito}}</a>
+                                                <a *ngIf="i>23&&i==indexDist" class="activado">{{dist.distrito}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                     </div>
+                                    
+                                </div>  
+                            </div>
+                        </div>
+            </div>
+            <ul class="navbar-nav nav-flex-icons">
+                <li class="nav-item waves-light" mdbRippleRadius>
+                    <a class="nav-link"><i class="fa fa-facebook"></i></a>
+                </li>
+                <li class="nav-item waves-light" mdbRippleRadius>
+                    <a class="nav-link"><i class="fa fa-twitter"></i></a>
+                </li>
+                <li class="nav-item waves-light" mdbRippleRadius>
+                    <a class="nav-link"><i class="fa fa-instagram"></i></a>
+                </li>
+            </ul>
+        </links>
+    </mdb-navbar>
+    <!-- Main -->
+    <div class="view intro hm-black-light">
+        <div class="full-bg-img flex-center">
+            <div class="container text-center white-text wow fadeInUp">
+
+                <div *ngIf="inicio==1">
+                    <h2>Yahoo Clima Perú</h2>
+                    <!-- <h5>Asegúrate de estar vestido adecuadamente para el clima de hoy</h5>
+                    <br>-->
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
+                             <p>Información en tiempo real sobre las condiciones climatológicas actuales de tu ciudad y cualquier otro lugar del pais.</p>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
+                            <input type="text" class="input-alternate" type="search" placeholder="Buscar">
+                            <a class="btn-floating btn-lg  search primary-color" style="border-radius:0.2rem" mdbRippleRadius><i class="fa fa-search icoSearch"></i></a>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+                </div>
+                <div *ngIf="noticias==1">
+                    
+                        <!--Section: Blog v.3-->
+                        <section class="section extra-margins pb-3 text-center text-lg-left">
+
+                            <!--Grid row-->
+                            <div class="row mt-5">
+
+                                <!--Grid column-->
+                                <div class="col-md-4">
+                                    <!--Featured image-->
+                                    <div class="view-noticias overlay hm-black-slight waves-light" mdbRippleRadius>
+                                        <img src="assets/imgs/noticia1.jpg" alt="First sample image">
+                                        <a>
+                                            <div class="mask"></div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!--Grid column-->
+
+                                <!--Grid column-->
+                                <div class="col-md-7">
+                                    <!--Excerpt-->
+                                    <a href="" class="teal-text"><h6 class="pb-1"><i class="fa fa-heart"></i><strong> Nacional </strong></h6></a>
+                                    <h4 class="mb-3"><strong>El Perú ha perdido el 57% de sus glaciares según estudios realizados</strong></h4>
+                                    <p>En 54 años, la cobertura glaciar se redujo de 1.035 km2 a 445 km2. Esto pone en riesgo el futuro de la reserva de agua del país.</p>
+                                    <p>Por <a><strong>Jessica Clark</strong></a>, 04/01/2018</p>
+                                    <a class="btn btn-primary waves-light" mdbRippleRadius>Leer más</a>
+                                </div>
+                                <!--Grid column-->
+
+                            </div>
+                            <!--Grid row-->
+
+                            <hr class="mb-3">
+
+                            <!--Grid row-->
+                            <div class="row">
+
+                                <!--Grid column-->
+                                <div class="col-md-4">
+                                    <!--Featured image-->
+                                    <div class="view-noticias overlay hm-black-slight waves-light" mdbRippleRadius>
+                                        <img src="assets/imgs/noticia2.jpg" alt="Second sample image">
+                                        <a>
+                                            <div class="mask"></div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!--Grid column-->
+
+                                <!--Grid column-->
+                                <div class="col-md-7">
+                                    <!--Excerpt-->
+                                    <a href="" class="cyan-text"><h6 class="pb-1"><i class="fa fa-plane"></i><strong> Internacional</strong></h6></a>
+                                    <h4 class="mb-3"><strong>El cambio climático hará que los huracanes sean más intensos pero no más frecuentes</strong></h4>
+                                    <p>"Cuanto mayor es la temperatura del agua y la tasa de humedad, mayor puede ser la intensidad del huracán", señala una climatóloga.</p>
+                                    <p>Por <a><strong>Michael Kent</strong></a>, 2712/2017</p>
+                                    <a class="btn btn-primary waves-light" mdbRippleRadius>Leer más</a>
+                                </div>
+                                <!--Grid column-->
+
+                            </div>
+                            <!--Grid row-->        
+
+                        </section>
+                        <!--Section: Blog v.3-->
+            
+                </div>
+                <div *ngIf="indexDist!=-1 || ciudades==1">
+                    <h4 class="h4-responsive mb-4" style="text-align:left">{{clima.title}}</h4>
+                   
+                    <div class="row mb-4">
+                         <div class="col-md-3" *ngFor="let dia of clima.forecast.slice(0,2);let i=index;let c=count;">
+                             <div class="card">
+                                        <div style="position:relative" class="mt-3">
+                                             <img class="img-fluid" src="assets/imgs/{{dia.text}}.png" alt="{{dia.text}}">
+                                        </div>
+                                        <p style="position:absolute" *ngIf="i==0">Hoy {{dia.date}}</p>
+                                        <p style="position:absolute" *ngIf="i==1">Mañana {{dia.date}}</p>
+                                        <div style="position:absolute;right:0.5rem;text-align:left">
+                                             <p><i class="fa fa-long-arrow-up" aria-hidden="true"></i> {{dia.high}}°C</p>
+                                             <p><i class="fa fa-long-arrow-down" aria-hidden="true"></i> {{dia.low}}°C</p>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <p>{{dia.text}}</p>
+                                        </div>
+                            </div>
+                         </div>
+                         <div class="col-md-6">  
+                            <agm-map [latitude]="clima.lat" [longitude]="clima.long" style="height: 11.6rem; background:transparent">
+                              <agm-marker [latitude]="clima.lat" [longitude]="clima.long"></agm-marker>
+                            </agm-map>
+                         </div>
+        
+                    </div>
+                       
+                    <div class="row">
+                        <a (click)="previous()" *ngIf="prev==1" class="btn-lf"><i class="fa fa-chevron-left fa-3x"></i></a>
+                        <a (click)="next()" *ngIf="nex==1" class="btn-rf"><i class="fa fa-chevron-right fa-3x"></i></a> 
+                        <!--Carousel Wrapper-->
+                        
+                        <mdb-carousel class="carousel-multi-item multi-animation" [type]="'carousel-multi-item'" [animation]="'slide'" [interval]="0"  #carouselRef>
+                            <mdb-slide>
+                                <div class="col-md-3" *ngFor="let dia of clima.forecast.slice(2,6);let i=index;let c=count;">
+                                    <div class="card">
+                                        <div style="position:relative" class="mt-3">
+                                             <img class="img-fluid" src="assets/imgs/{{dia.text}}.png" alt="{{dia.text}}">
+                                        </div>
+                                        <p style="position:absolute">{{dia.day}} {{dia.date}}</p>
+                                        <div style="position:absolute;right:0.5rem;text-align:left">
+                                             <p><i class="fa fa-long-arrow-up" aria-hidden="true"></i> {{dia.high}}°C</p>
+                                             <p><i class="fa fa-long-arrow-down" aria-hidden="true"></i> {{dia.low}}°C</p>
+                                        </div>
+                                           
+                                        
+                                        <div class="card-body text-center">
+                                            <p>{{dia.text}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mdb-slide>
+
+                            <mdb-slide>
+                                <div class="col-md-3" *ngFor="let dia of clima.forecast.slice(6,10);let i=index;let c=count;">
+                                    <div class="card">
+                                        <div style="position:relative" class="mt-3">
+                                            <img class="img-fluid" src="assets/imgs/{{dia.text}}.png" alt="{{dia.text}}">
+                                        </div>
+                                        <p style="position:absolute">{{dia.day}} {{dia.date}}</p>
+                                        <div style="position:absolute;right:0.5rem">
+                                             <p><i class="fa fa-long-arrow-up" aria-hidden="true"></i> {{dia.high}}°C</p>
+                                             <p><i class="fa fa-long-arrow-down" aria-hidden="true"></i> {{dia.low}}°C</p>
+                                        </div>
+                                          
+                                        <div class="card-body text-center">
+                                            <p>{{dia.text}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mdb-slide>
+
+                        </mdb-carousel>
+                        <!--/.Carousel Wrapper-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.Main -->
+</header>     
+<!--Main Navigation-->
+

@@ -1,0 +1,117 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+
+.view {
+    background: url("assets/imgs/fondo_clima.jpg")no-repeat center center;
+    background-size: cover;
+    margin-top: -56px;
+}    
+.navbar {
+    z-index: 1;
+    background: rgba(20,20,20,0.95);
+}
+.intro {
+    min-height: 0;
+    position: relative;
+}
+
+.modal-dialog {
+    max-width: 90%;
+    margin: 3.53rem auto;
+    color:#fff;
+}
+.modal-content{
+	background: rgba(20,20,20,0.95);
+}
+
+.modal-dialog a:not([href]):not([tabindex]) {
+    padding: 0 5px;
+}
+
+.modal-dialog a:not([href]):not([tabindex]):hover {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.activado{
+	background:rgba(255, 255, 255, 0.1);
+}
+
+.btn-lf{
+    position:absolute;
+    left: 3rem; 
+    top: 66%;
+}
+.btn-rf{
+    position: absolute;
+    right: 3rem;
+    top: 66%;
+}
+.controls-top{
+    display: none;
+}
+.carousel-indicators{
+    display: none;
+}
+.card{
+    background: transparent;
+    width: 100%;
+}
+.card-body{
+    background: rgba(66,133,244,0.6);
+    color:  #fff;
+    padding: 0;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.16);
+    
+}
+.card-body p{
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.img-fluid{
+    margin-right: 10rem;
+}
+.clima-actual{
+    position: absolute;
+}
+.gm-style{
+   opacity: 1;
+}
+.gm-style-pbc{
+    opacity: 1;
+    background:rgba(20,20,20,0.7);
+}
+.section img {
+    max-width: 100%;
+    height: auto;
+}
+.view-noticias {
+    overflow: hidden;
+    position: relative;
+    cursor: default;
+}
+.icoSearch{
+   color:#fff;
+   font-size: 1.4rem;
+   position: absolute;
+   right: 0.6rem;
+   top:0.45rem;
+}
+.search{
+   position: absolute;
+   top: -0.04rem;
+   right: 1.3rem;
+   height: 2.432rem;
+   width: 2.6rem;
+}
+
+input[type="search"]{
+    background:#fff;
+    max-width: 100%;
+    width: 92%;
+    border-radius: 0.2rem;
+}
+input[type="search"].input-alternate{
+    height: 2.4rem;
+}
